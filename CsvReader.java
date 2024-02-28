@@ -17,7 +17,6 @@ public class CsvReader {
             fm.writeElement(p);
             id++;
         }
-        
     }
 
     public Produto loadProduto() throws Exception{

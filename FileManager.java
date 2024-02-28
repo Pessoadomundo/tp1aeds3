@@ -1,4 +1,5 @@
-import java.io.RandomAccessFile; 
+import java.io.RandomAccessFile;
+import java.util.function.Predicate; 
 
 public class FileManager {
     private RandomAccessFile raf;
@@ -149,6 +150,58 @@ public class FileManager {
 
 
         csv.close();
+    }
+
+
+
+
+    public Produto[] conditionalSearch(Predicate<Produto> condition, int max) throws Exception{
+        raf.seek(0);
+        raf.readInt();
+        Produto[] res = new Produto[max];
+        int count = 0;
+        while(raf.getFilePointer() < raf.length() && count < max){
+            Produto p = readElement();
+            if(condition.test(p)){
+                res[count] = p;
+                count++;
+            }
+        }
+
+        return res;
+    }
+
+    public void resetPosition() throws Exception{
+        raf.seek(0);
+        raf.readInt();
+    }
+
+    public Produto[] readNext(int n){
+        Produto[] res = new Produto[n];
+        for(int i=0;i<n;i++){
+            try{
+                res[i] = readElement();
+            }catch(Exception e){
+                res[i] = null;
+            }
+        }
+
+        return res;
+    }
+
+    public boolean hasNext() throws Exception{
+        return raf.getFilePointer() < raf.length();
+    }
+
+    public int getProductAmount() throws Exception{
+        int amount = 0;
+        resetPosition();
+        while(hasNext()){
+            readElement();
+            amount++;
+        }
+
+        return amount;
     }
 
 

@@ -1,3 +1,5 @@
+import java.io.RandomAccessFile;
+import java.lang.reflect.Array;
 import java.time.format.DateTimeFormatter;
 
 public class Util {
@@ -114,6 +116,82 @@ public class Util {
     public static long getUTC(String str){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
         return java.time.LocalDateTime.parse(str, formatter).toEpochSecond(java.time.ZoneOffset.UTC);
+    }
+
+    public static boolean compareNumber(double n, String operator, double n2){
+        switch(operator){
+            case "=":
+                return n==n2;
+            case "<":
+                return n<n2;
+            case ">":
+                return n>n2;
+            case "<=":
+                return n<=n2;
+            case ">=":
+                return n>=n2;
+            case "!=":
+                return n!=n2;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean compareBoolean(boolean b, String operator, boolean b2){
+        switch(operator){
+            case "=":
+                return b==b2;
+            case "!=":
+                return b!=b2;
+            default:
+                return false;
+        }
+    }
+
+    public static int cmpStrings(String str1, String str2){
+        int i = 0;
+        while(i<str1.length() && i<str2.length()){
+            if(str1.charAt(i) < str2.charAt(i)){
+                return -1;
+            }
+            if(str1.charAt(i) > str2.charAt(i)){
+                return 1;
+            }
+            i++;
+        }
+
+        if(str1.length() < str2.length()){
+            return -1;
+        }
+        if(str1.length() > str2.length()){
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public static Produto[] removeEndingNulls(Produto[] arr) {
+        int i = arr.length - 1;
+        while (i >= 0 && arr[i] == null) {
+            i--;
+        }
+
+        Produto[] res = new Produto[i+1];
+        for(int j=0;j<=i;j++){
+            res[j] = arr[j];
+        }
+
+        return res;
+    }
+
+    public static Produto rawReadProduto(RandomAccessFile raf) throws Exception{
+        raf.readByte();
+        int len = raf.readInt();
+        raf.seek(raf.getFilePointer()-5);
+        byte[] bArr = new byte[len+5];
+        raf.read(bArr);
+        Produto p = new Produto(bArr);
+        return p;
     }
 
 }

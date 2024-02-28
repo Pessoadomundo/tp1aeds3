@@ -137,7 +137,7 @@ public class Produto {
         this.terms = terms;
     }
 
-    public boolean isSection() {
+    public boolean getSection() {
         return this.section;
     }
 
@@ -213,7 +213,72 @@ public class Produto {
         return "Alive: " + this.alive + "\n" + "Id: " + this.id + "\n" + "Url: " + this.url + "\n" + "Sku: " + this.sku + "\n" + "Name: " + this.name + "\n" + "Description: " + this.description + "\n" + "Price: " + this.price + "\n" + "Currency: " + this.currency + "\n" + "Images: " + Util.combineStrings(this.images) + "\n" + "Date: " + this.date + "\n" + "Terms: " + this.terms + "\n" + "Section: " + this.section + "\n" + "Image Downloads: " + Util.combineStrings(this.image_downloads);
     }
 
-    public static void main(String[] args) {
-        
+
+
+
+
+
+
+    public boolean compareNumber(String property, String operator, double n){
+        switch(property){
+            case "id":
+                return Util.compareNumber(this.id, operator, n);
+            case "price":
+                return Util.compareNumber(this.price, operator, n);
+            case "date":
+                return Util.compareNumber(this.date, operator, n);
+            default:
+                return false;
+        }
     }
+
+    public boolean compareString(String property, String operator, String str){
+        switch(property){
+            case "url":
+                if(operator.equals("=")) return this.url.equals(str);
+                if(operator.equals("contains")) return this.url.contains(str);
+            case "sku":
+                if(operator.equals("=")) return this.sku.equals(str);
+                if(operator.equals("contains")) return this.sku.contains(str);
+            case "name":
+                if(operator.equals("=")) return this.name.equals(str);
+                if(operator.equals("contains")) return this.name.contains(str);
+            case "description":
+                if(operator.equals("=")) return this.description.equals(str);
+                if(operator.equals("contains")) return this.description.contains(str);
+            case "currency":
+                if(operator.equals("=")) return this.currency.equals(str);
+                if(operator.equals("contains")) return this.currency.contains(str);
+            case "terms":
+                if(operator.equals("=")) return this.terms.equals(str);
+                if(operator.equals("contains")) return this.terms.contains(str);
+            default:
+                return false;
+        }
+    }
+
+    public boolean compareStringArray(String property, String str){
+        switch(property){
+            case "images":
+                for(String s:this.images){
+                    if(s.equals(str)){
+                        return true;
+                    }
+                }
+                return false;
+            case "image_downloads":
+                for(String s:this.image_downloads){
+                    if(s.equals(str)){
+                        return true;
+                    }
+                }
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    
+
+
 }
