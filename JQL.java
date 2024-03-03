@@ -134,7 +134,8 @@ public class JQL {
             fm.start(filename);
             System.out.println("Digite o nome do arquivo csv que deseja abrir");
             String csv = sc.nextLine();
-            fm.loadFromCsv(csv);
+            CsvReader c = new CsvReader(csv);
+            c.loadFromCsv(fm);
         }else{
             System.out.println("Digite o nome do arquivo que deseja abrir");
             String filename = sc.nextLine();

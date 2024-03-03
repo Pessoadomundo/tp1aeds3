@@ -176,41 +176,6 @@ public class FileManager {
         return false;
     }
 
-    /**
-     * [IGNORAR FUNÇÃO]
-     * Lê todos os registros (Produtos) de um arquivo (parâmetro) e retorna um array de Produtos.
-     * @return Produto[] - array de Produtos
-     * @throws Exception
-     */
-    public void loadFromCsv(String path) throws Exception{
-        RandomAccessFile csv = new RandomAccessFile(path, "r");
-        csv.seek(0);
-        Produto p = new Produto();
-        byte b = (byte) csv.readByte();
-        String buffer = ""+b;
-        while(csv.getFilePointer() < csv.length()){
-            while(b!=(byte)','){
-                b = (byte) csv.readByte();
-                buffer += (char) b;
-            }
-            p.setUrl(buffer);
-            buffer = "";
-
-            b = (byte) csv.readByte();
-            while(b!=(byte)','){
-                b = (byte) csv.readByte();
-                buffer += (char) b;
-            }
-            p.setSku(buffer);
-            buffer = "";
-
-        }
-        
-
-
-        csv.close();
-    }
-
     public Produto[] conditionalSearch(Predicate<Produto> condition, int max) throws Exception{
         raf.seek(0);
         raf.readInt();
@@ -222,8 +187,6 @@ public class FileManager {
                 res[count] = p;
                 count++;
             }
-
-            System.out.println(raf.getFilePointer() + " " + raf.length() + " " + count + " " + max);
         }
 
         return res;

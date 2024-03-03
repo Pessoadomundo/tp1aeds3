@@ -66,7 +66,7 @@ public class CsvReader {
       b = (byte) csv.readByte();
     }
     String buffer = "";
-    while (b != endMark) {
+    while (b != endMark && csv.getFilePointer() < csv.length()) {
       if (b != '\n' && b != 13) buffer += (char) b;
       b = (byte) csv.readByte();
     }
@@ -101,7 +101,7 @@ public class CsvReader {
     }
 
     csv.readByte();
-    csv.readByte();
+    if(csv.getFilePointer() < csv.length())csv.readByte();
 
     return separated;
   }
