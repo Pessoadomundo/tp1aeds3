@@ -72,7 +72,7 @@ public class FileManager {
      * @param p
      * @throws Exception
      */
-    public void writeElement(Produto p) throws Exception{
+    public int writeElement(Produto p) throws Exception{
         raf.seek(0);
         int lastId = raf.readInt();
         
@@ -83,6 +83,8 @@ public class FileManager {
 
         raf.seek(0);
         raf.writeInt(lastId+1);
+
+        return lastId+1;
     }
     
     /**
@@ -220,6 +222,8 @@ public class FileManager {
                 res[count] = p;
                 count++;
             }
+
+            System.out.println(raf.getFilePointer() + " " + raf.length() + " " + count + " " + max);
         }
 
         return res;
