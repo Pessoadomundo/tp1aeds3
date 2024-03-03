@@ -13,6 +13,9 @@ public class Produto {
     private boolean section;
     private String[] image_downloads;
 
+    /**
+     * Construtor de Produto
+     */
     public Produto(){
         this.alive = false;
         this.id = 0;
@@ -33,6 +36,22 @@ public class Produto {
         this.fromByteArray(byteArr);
     }
 
+    /**
+     * Construtor de Produto
+     * @param alive
+     * @param id
+     * @param url
+     * @param sku
+     * @param name
+     * @param description
+     * @param price
+     * @param currency
+     * @param images
+     * @param date
+     * @param terms
+     * @param section
+     * @param image_downloads
+     */
     public Produto(boolean alive, int id, String url, String sku, String name, String description, float price, String currency, String[] images, long date, String terms, boolean section, String[] image_downloads){
         this.alive = alive;
         this.id = id;
@@ -152,7 +171,10 @@ public class Produto {
     public void setImageDownloads(String[] imageDownloads) {
         this.image_downloads = imageDownloads;
     }
-
+    /**
+     * Lê dados e os converte em arrays de bytes, que então são combinadas ao final da função.
+     * @return byte[] - Registro completo dos atributos do produto.
+     */
     public byte[] toByteArray(){
         byte[] aliveArr = Util.getByteArray(this.alive, (byte)' ', (byte)'*');
 
@@ -191,6 +213,10 @@ public class Produto {
         return res;
     }
 
+    /**
+     * Recebe arrays de bytes equivalentes a cada um dos atributos e os designa corretamente às propriedades do Produto.
+     * @param byteArr 
+     */
     public void fromByteArray(byte[] byteArr){
         ByteReader br = new ByteReader(byteArr);
         this.alive = br.readBoolean((byte)' ', (byte)'*');
@@ -213,12 +239,14 @@ public class Produto {
         return "Alive: " + this.alive + "\n" + "Id: " + this.id + "\n" + "Url: " + this.url + "\n" + "Sku: " + this.sku + "\n" + "Name: " + this.name + "\n" + "Description: " + this.description + "\n" + "Price: " + this.price + "\n" + "Currency: " + this.currency + "\n" + "Images: " + Util.combineStrings(this.images) + "\n" + "Date: " + this.date + "\n" + "Terms: " + this.terms + "\n" + "Section: " + this.section + "\n" + "Image Downloads: " + Util.combineStrings(this.image_downloads);
     }
 
-
-
-
-
-
-
+    /**
+     * Combina parâmetro property (e.g id, price ou date) + operador (maior que, menor que, etc)
+     * e número para retornar verdadeiro ou falso de acordo com o critério estabelecido
+     * @param property
+     * @param operator
+     * @param n
+     * @return true (se condição for atendida) OU false (condição não é atendida)
+     */
     public boolean compareNumber(String property, String operator, double n){
         switch(property){
             case "id":
@@ -232,6 +260,14 @@ public class Produto {
         }
     }
 
+    /**
+     * Combina parâmetro property (e.g url, name, etc) + operador (igual a, contém)
+     * e um termo para retornar verdadeiro ou falso caso a string seja igual ou contenha o termo passada.
+     * @param property
+     * @param operator
+     * @param str
+     * @return true (termo passado está contido na propriedade do produto) OU false (termo não se encontra na propriedade especificada)
+     */
     public boolean compareString(String property, String operator, String str){
         switch(property){
             case "url":
@@ -257,6 +293,12 @@ public class Produto {
         }
     }
 
+    /**
+     * Confere se o link de uma imagem está contido dentro de uma lista de imagens associada a um determinado Produto.
+     * @param property
+     * @param str
+     * @return true (a imagem está na lista de imagens do produto) OU false (imagem não se encontra nessa lista)
+     */
     public boolean compareStringArray(String property, String str){
         switch(property){
             case "images":

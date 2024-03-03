@@ -12,6 +12,9 @@ public class FileManager {
         this.start(path);
     }
 
+    /**
+     * Cria/abre um novo arquivo, o esvazia e o inicializa.
+     */
     public void start(String path) throws Exception{
         this.raf = new RandomAccessFile(path, "rw");
         raf.setLength(0);
@@ -19,20 +22,41 @@ public class FileManager {
         raf.writeInt(0);
     }
 
+    /**
+     * Carrega um arquivo existente e o associa à variável do tipo RAF.
+     * @param path
+     * @throws Exception
+     */
     public void loadFile(String path) throws Exception{
         this.raf = new RandomAccessFile(path, "rw");
     }
 
+    /**
+     * Escreve um array de bytes no arquivo na posição atual onde o ponteiro RAF está.
+     * @param bArr
+     * @throws Exception
+     */
     public void writeBytes(byte[] bArr) throws Exception{
         raf.write(bArr);
     }
 
+    /**
+     * Lê um array de bytes do arquivo na posição atual onde o ponteiro RAF está.
+     * @param len
+     * @return byte[] - array de bytes lido
+     * @throws Exception
+     */
     public byte[] readBytes(int len) throws Exception{
         byte[] bArr = new byte[len];
         raf.read(bArr);
         return bArr;
     }
 
+    /**
+     * Lê um elemento (registro) do arquivo na posição atual onde o ponteiro RAF está.
+     * @return Produto - registro lido
+     * @throws Exception
+     */
     public Produto readElement() throws Exception{
         raf.readByte();
         int len = raf.readInt();
@@ -43,6 +67,11 @@ public class FileManager {
         return p;
     }
 
+    /**
+     * Posiciona ponteiro RAF para início do arquivo e lê último id inserido para designar o id de um novo registro corretamente (ultimoInserido + 1). Então, uma array de bytes (novo registro/elemento) é então escrita ao ginal do arquivo.
+     * @param p
+     * @throws Exception
+     */
     public void writeElement(Produto p) throws Exception{
         raf.seek(0);
         int lastId = raf.readInt();
@@ -55,7 +84,13 @@ public class FileManager {
         raf.seek(0);
         raf.writeInt(lastId+1);
     }
-
+    
+    /**
+     * Move ponteiro RAF para início do arquivo, "pula" último id inserido e procura registro passado por meio de id (parâmetro). Se encontrado, retorna registro (Produto), caso contrário, retorna null.
+     * @param id
+     * @return Produto - registro lido
+     * @throws Exception
+     */
     public Produto readElement(int id) throws Exception{
         raf.seek(0);
         raf.readInt();
@@ -69,10 +104,20 @@ public class FileManager {
         return null;
     }
 
+    /**
+     * Fecha ponteiro RAF.
+     * @throws Exception
+     */
     public void close() throws Exception{
         raf.close();
     }
 
+    /**
+     * Deleta registro (Produto) do arquivo por meio de id (parâmetro). Retorna true se registro foi deletado, caso contrário, retorna false.
+     * @param id
+     * @return boolean - true se registro foi deletado, caso contrário, retorna false
+     * @throws Exception
+     */
     public boolean deleteElement(int id) throws Exception{
         raf.seek(0);
         raf.readInt();
@@ -91,6 +136,12 @@ public class FileManager {
         return false;
     }
 
+    /**
+     * Atualiza registro (Produto) no arquivo por meio de id (parâmetro). Retorna true se registro foi atualizado, caso contrário, retorna false.
+     * @param p
+     * @return boolean - true se registro foi atualizado, caso contrário, retorna false
+     * @throws Exception
+     */
     public boolean updateElement(Produto p) throws Exception{
         raf.seek(0);
         raf.readInt();
@@ -123,6 +174,12 @@ public class FileManager {
         return false;
     }
 
+    /**
+     * [IGNORAR FUNÇÃO]
+     * Lê todos os registros (Produtos) de um arquivo (parâmetro) e retorna um array de Produtos.
+     * @return Produto[] - array de Produtos
+     * @throws Exception
+     */
     public void loadFromCsv(String path) throws Exception{
         RandomAccessFile csv = new RandomAccessFile(path, "r");
         csv.seek(0);
@@ -152,9 +209,6 @@ public class FileManager {
         csv.close();
     }
 
-
-
-
     public Produto[] conditionalSearch(Predicate<Produto> condition, int max) throws Exception{
         raf.seek(0);
         raf.readInt();
@@ -171,11 +225,20 @@ public class FileManager {
         return res;
     }
 
+    /**
+     * Reposiciona ponteiro RAF para início do arquivo (pula 4 bytes e parte para o primeiro registro).
+     * @throws Exception
+     */
     public void resetPosition() throws Exception{
         raf.seek(0);
         raf.readInt();
     }
 
+    /**
+     * Lê próximo registro (Produto) do arquivo. Se não houver mais registros, retorna null.
+     * @param n
+     * @return
+     */
     public Produto[] readNext(int n){
         Produto[] res = new Produto[n];
         for(int i=0;i<n;i++){
@@ -189,10 +252,20 @@ public class FileManager {
         return res;
     }
 
+    /**
+     * Retorna true se houver mais registros (Produtos) no arquivo, caso contrário, retorna false.
+     * @return boolean - true se houver mais registros, caso contrário, retorna false
+     * @throws Exception
+     */
     public boolean hasNext() throws Exception{
         return raf.getFilePointer() < raf.length();
     }
 
+    /**
+     * Retorna quantidade de registros (Produtos) no arquivo com base na função hasNext().
+     * @return int - quantidade de registros
+     * @throws Exception
+     */
     public int getProductAmount() throws Exception{
         int amount = 0;
         resetPosition();
