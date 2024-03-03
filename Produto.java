@@ -68,106 +68,210 @@ public class Produto {
         this.image_downloads = image_downloads;
     }
 
+    /**
+     * Retorna se o produto está "vivo" ou não.
+     * @return true (produto está ativo) OU false (produto não está ativo)
+     */
     public boolean getAlive(){
         return this.alive;
     }
 
+    /**
+     * Define se o produto está "vivo" ou não.
+     * @param a
+     */
     public void setAlive(boolean a){
         this.alive = a;
     }
 
+    /**
+     * Retorna o id do produto.
+     * @return id
+     */
     public int getId(){
         return this.id;
     }
 
+    /**
+     * Define o id do produto.
+     * @param id
+     */
     public void setId(int id){
         this.id = id;
     }
 
+    /**
+     * Retorna a url do produto.
+     * @return url
+     */
     public String getUrl() {
         return this.url;
     }
 
+    /**
+     * Define a url do produto.
+     * @param url
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * Retorna o sku do produto.
+     * @return sku
+     */
     public String getSku() {
         return this.sku;
     }
 
+    /**
+     * Define o sku do produto.
+     * @param sku
+     */
     public void setSku(String sku) {
         this.sku = sku;
     }
 
+    /**
+     * Retorna o nome do produto.
+     * @return name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Define o nome do produto.
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Retorna a descrição do produto.
+     * @return description
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Define a descrição do produto.
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Retorna o preço do produto.
+     * @return price
+     */
     public float getPrice() {
         return this.price;
     }
 
+    /**
+     * Define o preço do produto.
+     * @param price
+     */
     public void setPrice(float price) {
         this.price = price;
     }
 
+    /**
+     * Retorna a moeda do produto.
+     * @return currency
+     */
     public String getCurrency() {
         return this.currency;
     }
 
+    /**
+     * Define a moeda do produto.
+     * @param currency
+     */
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
+    /**
+     * Retorna as imagens (lista) do produto.
+     * @return images
+     */
     public String[] getImages() {
         return this.images;
     }
 
+    /**
+     * Define as imagens (lista) do produto.
+     * @param images
+     */
     public void setImages(String[] images) {
         this.images = images;
     }
 
+    /**
+     * Retorna a data do produto.
+     * @return date
+     */
     public long getDate() {
         return this.date;
     }
 
+    /**
+     * Define a data do produto.
+     * @param date
+     */
     public void setDate(long date) {
         this.date = date;
     }
 
+    /**
+     * Retorna os termos (jackets, puffers, etc) do produto.
+     * @return terms
+     */
     public String getTerms() {
         return this.terms;
     }
 
+    /**
+     * Define os termos (jackets, puffers, etc) do produto.
+     * @param terms
+     */
     public void setTerms(String terms) {
         this.terms = terms;
     }
 
+    /**
+     * Retorna seção do produto (MAN, WOMAN).
+     * @return section
+     */
     public boolean getSection() {
         return this.section;
     }
 
+    /**
+     * Define seção (MAN, WOMAN) do produto.
+     * @param boolean
+     */
     public void setSection(boolean section) {
         this.section = section;
     }
 
+    /**
+     * Retorna a lista de downloads de imagens do produto.
+     * @return string[] - image_downloads
+     */
     public String[] getImageDownloads() {
         return this.image_downloads;
     }
 
+    /**
+     * Define downloads de imagens do produto.
+     * @param imageDownloads
+     */
     public void setImageDownloads(String[] imageDownloads) {
         this.image_downloads = imageDownloads;
     }

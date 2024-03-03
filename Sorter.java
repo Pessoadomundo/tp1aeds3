@@ -2,6 +2,13 @@ import java.io.RandomAccessFile;
 import java.util.Random;
 
 public class Sorter {
+    /**
+     * Recebe (parâmetro) dois produtos e atributo a ser comparado. Compara ambos os produtos com base no atributo fornecido utilizando funções da classe Util. 
+     * @param a
+     * @param b
+     * @param property
+     * @return Retorna 1 se a > b, -1 se a < b e 0 se a == b.
+     */
     private static int compare(Produto a, Produto b, String property){
         switch (property) {
             case "id":
