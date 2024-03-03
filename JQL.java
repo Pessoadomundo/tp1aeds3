@@ -159,8 +159,20 @@ public class JQL {
                     System.out.println("Digite a query que deseja realizar");
                     String query = sc.nextLine();
                     Produto[] res = query(fm, query);
+
+                    boolean foundOne = false;
+
+                    System.out.println("\nResultados:\n\n");
+
                     for(Produto p : res){
-                        if(p != null) System.out.println(p.toString() + "\n\n");
+                        if(p != null){
+                            System.out.println(p.toString() + "\n\n");
+                            foundOne = true;
+                        } 
+                    }
+
+                    if(!foundOne){
+                        System.out.println("Nenhum produto encontrado\n\n");
                     }
                     break;
                 case 2:
@@ -170,24 +182,27 @@ public class JQL {
                     System.out.println("Digite a descrição do produto");
                     p.setDescription(sc.nextLine());
                     System.out.println("Digite o preço do produto");
-                    p.setPrice(sc.nextFloat());
+                    p.setPrice(Float.parseFloat(sc.nextLine()));
                     System.out.println("Digite a moeda do produto");
                     p.setCurrency(sc.nextLine());
                     System.out.println("Digite a url do produto");
                     p.setUrl(sc.nextLine());
                     System.out.println("Digite o sku do produto");
                     p.setSku(sc.nextLine());
-                    System.out.println("Digite a data do produto");
-                    p.setDate(sc.nextLong());
+                    System.out.println("Digite a data do produto (em milisegundos)");
+                    p.setDate(Long.parseLong(sc.nextLine()));
                     System.out.println("Digite os termos do produto");
                     p.setTerms(sc.nextLine());
-                    System.out.println("Digite a seção do produto");
-                    p.setSection(sc.nextBoolean());
-                    System.out.println("Digite as imagens do produto");
+                    System.out.println("Digite a seção do produto (M/F)");
+                    p.setSection(sc.nextLine().equals("M"));
+                    System.out.println("Digite as imagens do produto (separadas por vírgula)");
                     p.setImages(sc.nextLine().split(","));
-                    System.out.println("Digite os downloads das imagens do produto");
+                    System.out.println("Digite os downloads das imagens do produto (separados por vírgula)");
                     p.setImageDownloads(sc.nextLine().split(","));
+                    p.setAlive(true);
                     fm.writeElement(p);
+
+                    System.out.println("\n\nProduto com id " + p.getId() + " adicionado com sucesso\n");
 
                     break;
                 case 3:
@@ -254,15 +269,14 @@ public class JQL {
                     Produto produto = fm.readElement(id2);
 
                     System.out.println("Qual propriedade deseja atualizar?\n" +
-                    "1- id\n" +
-                    "2- url\n" +
-                    "3- sku\n" +
-                    "4- name\n" +
-                    "5- description\n" +
-                    "6- price\n" +
-                    "7- currency\n" +
-                    "8- date\n" +
-                    "9- terms\n");
+                    "1- url\n" +
+                    "2- sku\n" +
+                    "3- name\n" +
+                    "4- description\n" +
+                    "5- price\n" +
+                    "6- currency\n" +
+                    "7- date\n" +
+                    "8- terms\n");
 
                     int choice2 = Integer.parseInt(sc.nextLine());
                     String property2 = "";
@@ -309,6 +323,8 @@ public class JQL {
 
                     fm.updateElement(produto);
                     
+                    System.out.println("Produto atualizado com sucesso\n\n");
+
                     break;
                 case 6:
                     fm.close();
