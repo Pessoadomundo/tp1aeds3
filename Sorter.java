@@ -45,11 +45,24 @@ public class Sorter {
         return 0;
     }
 
+    /**
+     * Recebe (parâmetro) um array de produtos e atributo a ser comparado. Ordena o array com base no atributo fornecido utilizando o algoritmo de ordenação quicksort.
+     * @param arr
+     * @param property
+     * @return Produto[] - array de produtos ordenado
+     */
     public static Produto[] quicksort(Produto[] arr, String property){
         quicksort(arr, 0, arr.length-1, property);
         return arr;
     }
 
+    /**
+     * Recebe (parâmetro) um array de produtos, índices esquerdo e direito e atributo a ser comparado. Ordena o array com base no atributo fornecido utilizando o algoritmo de ordenação quicksort.
+     * @param arr
+     * @param esq
+     * @param dir
+     * @param property
+     */
     private static void quicksort(Produto[] arr, int esq, int dir, String property){
         System.out.println("Sorting " + esq + " to " + dir);
         Produto pivot = arr[(esq+dir) / 2];
@@ -80,6 +93,12 @@ public class Sorter {
         }
     }
 
+    /**
+     * Recebe (parâmetro) um arquivo e um array de produtos (já ordenados). Escreve array de produtos no arquivo fornecido.
+     * @param f
+     * @param pArr
+     * @throws Exception
+     */
     public static void writeProdutoArray(RandomAccessFile f, Produto[] pArr) throws Exception{
         f.seek(f.length());
         for(Produto p:pArr){
@@ -87,6 +106,15 @@ public class Sorter {
         }
     }
 
+    /**
+     * Recebe (parâmetro) um FileManager, dois arquivos, um tamanho de chunk e um atributo. Lê os produtos do FileManager, ordena-os e escreve-os nos arquivos fornecidos, de maneira intercalada com base no tamanho da chunk.
+     * @param fm
+     * @param f1
+     * @param f2
+     * @param chunkSize
+     * @param property
+     * @throws Exception
+     */
     public static void startIBFiles(FileManager fm, RandomAccessFile f1, RandomAccessFile f2, int chunkSize, String property) throws Exception{
         fm.resetPosition();
 
@@ -107,6 +135,16 @@ public class Sorter {
         }
     }
 
+    /**
+     * Recebe (parâmetro) quatro arquivos, um tamanho de chunk e um atributo. Move ponteiros RAF para início dos dois primeiros arquivos e inicializa outros dois. Compara os produtos dos dois primeiros arquivos e insere o menor em arquivo novo (f3 / f4), de maneira intercalada com base no tamanho da chunk.
+     * @param f1
+     * @param f2
+     * @param f3
+     * @param f4
+     * @param chunkSize
+     * @param property
+     * @throws Exception
+     */
     public static void mergeFiles(RandomAccessFile f1, RandomAccessFile f2, RandomAccessFile f3, RandomAccessFile f4, int chunkSize, String property) throws Exception{
         f1.seek(0);
         f2.seek(0);
@@ -157,6 +195,13 @@ public class Sorter {
         }
     }
 
+    /**
+     * Recebe (parâmetro) um FileManager (arquivo que será feita a ordenção), um atributo e um nome de arquivo (arquivoFinal). Cria quatro arquivos temporários, ordena os produtos do FileManager e escreve-os no arquivoFinal fornecido, de maneira intercalada.
+     * @param fm
+     * @param property
+     * @param endFile
+     * @throws Exception
+     */
     public static void intercalacaoBalanceada(FileManager fm, String property, String endFile) throws Exception{
         RandomAccessFile f1 = new RandomAccessFile("f1.dat", "rw");
         RandomAccessFile f2 = new RandomAccessFile("f2.dat", "rw");
