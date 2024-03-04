@@ -256,12 +256,14 @@ public class JQL {
                     System.out.println("Qual será o arquivo de saída?\n");
                     endFile = sc.nextLine();
                     Sorter.intercalacaoBalanceada(fm, property, endFile);
+                    System.out.println("\nOrdenação realizada com sucesso!\n");
 
                     break;
                 case 4:
                     System.out.println("Digite o id do produto que deseja excluir");
                     int id = Integer.parseInt(sc.nextLine());
                     fm.deleteElement(id);
+                    System.out.println("\nProduto excluído com sucesso!\n");
                     break;
                 case 5:
                     System.out.println("Digite o id do produto que deseja atualizar");
@@ -324,7 +326,7 @@ public class JQL {
 
                     fm.updateElement(produto);
                     
-                    System.out.println("Produto atualizado com sucesso\n\n");
+                    System.out.println("Produto atualizado com sucesso!\n\n");
 
                     break;
                 case 6:

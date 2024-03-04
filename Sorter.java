@@ -64,7 +64,6 @@ public class Sorter {
      * @param property
      */
     private static void quicksort(Produto[] arr, int esq, int dir, String property){
-        System.out.println("Sorting " + esq + " to " + dir);
         Produto pivot = arr[(esq+dir) / 2];
         int i = esq;
         int j = dir;
