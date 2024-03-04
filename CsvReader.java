@@ -101,7 +101,7 @@ public class CsvReader {
     }
 
     csv.readByte();
-    if(csv.getFilePointer() < csv.length())csv.readByte();
+    if (csv.getFilePointer() < csv.length()) csv.readByte();
 
     return separated;
   }
